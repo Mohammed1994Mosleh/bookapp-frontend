@@ -17,8 +17,11 @@ import BestBooks from './BestBooks';
 class App extends React.Component {
 
   render() {
-    console.log('app', this.props.auth0);
+    console.log('app', this.props.auth0.user);
     const {  isAuthenticated  } = this.props.auth0;
+    
+
+
     
     return(
       <>
@@ -28,7 +31,7 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/">
                
-                {! isAuthenticated ?<LoginButton/>:<BestBooks/> }
+                {! isAuthenticated ?<LoginButton/>:<BestBooks email={this.props.auth0.user} /> }
                 {/* TODO: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
               </Route>
               {/* TODO: add a route with a path of '/profile' that renders a `Profile` component */}

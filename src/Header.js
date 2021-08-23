@@ -8,10 +8,23 @@ import LogoutButton from './component/LogoutButton';
 import { withAuth0 } from '@auth0/auth0-react';
 
 class Header extends React.Component {
-  render() {
+constructor(props){
+super(props)
+// this.state={
+// userr:{}
+// }
 
+}
+//  getEmail() {
+//     this.setState({
+//       userr:this.props.auth0.user
+//     })
+//    }
+
+  render() {
+    console.log(this.props.auth0.user)
     const { user, isAuthenticated  } = this.props.auth0
-    return(
+     return(
      
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Navbar.Brand>My Favorite Books</Navbar.Brand>
