@@ -16,11 +16,31 @@ import BestBooks from './BestBooks';
 // const {isAuthenticated, loginWithRedirect,} = useAuth0();
 class App extends React.Component {
 
-  render() {
-    console.log('app', this.props.auth0.user);
-    const {  isAuthenticated  } = this.props.auth0;
-    
+  constructor(props){
+super(props)
+this.state={
+bookNmae:'',
+bookdescription:''
+}
 
+  }
+
+  updatedbook=(e) =>{
+   this.setState({
+    bookNmae:e.target.BookName.value,
+    bookdescription:e.target.description.value,
+    
+   })
+
+
+  }
+
+
+    // console.log('app', this.props.auth0.user);
+    
+    
+    render() {
+      const { user, isAuthenticated  } = this.props.auth0;
 
     
     return(
@@ -31,7 +51,7 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/">
                
-                {! isAuthenticated ?<LoginButton/>:<BestBooks email={this.props.auth0.user} /> }
+                {! isAuthenticated ?<LoginButton/>: <BestBooks update={this.state} email={this.props.auth0.user}  /> }
                 {/* TODO: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
               </Route>
               {/* TODO: add a route with a path of '/profile' that renders a `Profile` component */}
