@@ -30,10 +30,12 @@ class BestBooks extends React.Component {
     // this.props.
 
 let data= await axios.get(bookUrl)    
-console.log(data);
-this.setState({
+
+await this.setState({
   bookInfo:data.data
 })
+
+console.log(data);
 }
 
 updatedBook =async(e)=>{
