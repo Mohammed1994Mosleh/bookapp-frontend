@@ -13,6 +13,13 @@ class Book extends React.Component{
 
     }
 
+    updateBook=()=>{
+      this.props.updateBooks(this.props.item1._id)
+    }
+
+
+    
+
 
 
 render(){
@@ -22,7 +29,9 @@ return(
 <>
     <Card style={{ width: '18rem' }} >
     <Card.Body>
-    <Card.Title>{this.props.item1.title} <button onClick={this.deleteBooks1} >Deletete</button></Card.Title>
+    <Card.Title>{this.props.item1.title} <button onClick={this.deleteBooks1} >Deletete</button>
+    <button onClick={this.updateBook}>Update</button>
+    </Card.Title>
     <Card.Text>
       description:{this.props.item1.description}
     </Card.Text>

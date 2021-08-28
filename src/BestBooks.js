@@ -7,6 +7,7 @@ import { withAuth0 } from '@auth0/auth0-react';
 import BookFormModal from './component/BookFormModal';
 import { AsyncSeriesWaterfallHook } from 'tapable';
 import Book from './component/Book';
+import Updatemodel from './component/Updatemodel'
 
 
 
@@ -16,7 +17,9 @@ class BestBooks extends React.Component {
   constructor(props){
     super(props)
     this.state={
-    bookInfo:[]
+    bookInfo:[],
+    bookData:[],
+    showUpdatedmodel:false
     }
   }
   
@@ -27,10 +30,12 @@ class BestBooks extends React.Component {
     // this.props.
 
 let data= await axios.get(bookUrl)    
-console.log(data);
-this.setState({
+
+await this.setState({
   bookInfo:data.data
 })
+
+console.log(data);
 }
 
 updatedBook =async(e)=>{
@@ -66,11 +71,39 @@ await this.setState({
 
 }
 
-// deleteBooks11(){
-// this.deleteBooks()
+
+updateBooks=async (id)=>{
+let bookDataupdated=this.state.bookInfo.find(item =>{
+if(item._id== id){
+  return item
+}
+})
+console.log(bookDataupdated);
+await this.setState({
+  bookData:bookDataupdated,
+  showUpdatedmodel:true
+})
+console.log(this.state.bookData);
 
 
-// }
+}
+
+closeupdatedModel=()=>{
+  this.setState({
+    showUpdatedmodel:false
+  })    
+}
+
+updateddatareaday=async(obj)=>{
+
+let bookId=obj.id
+  let catsData = await axios.put(`${process.env.REACT_APP_BookUrl}/updateBook/${bookId}`,obj);
+  console.log(catsData);
+  this.setState({
+    bookInfo:catsData.data,
+  })
+
+}
 
 
 
@@ -79,11 +112,12 @@ await this.setState({
     return(
       <div>
       <BookFormModal updatedbook={this.updatedBook}/>
+      <Updatemodel updateddatareaday={this.updateddatareaday} closeupdatedModel={this.closeupdatedModel} showmodel={this.state.showUpdatedmodel} updatedData={this.state.bookData} />
 
 
     {this.state.bookInfo.map((item,indx)=>{
        return(
-     <Book item1={item} deleteBooks={this.deleteBooks} key={indx}  />
+     <Book updateBooks={this.updateBooks} item1={item} deleteBooks={this.deleteBooks} key={indx}  />
 
        )})
      
